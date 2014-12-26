@@ -1,0 +1,96 @@
+<html>
+  <head>
+  	<meta name="viewport" content="width=device-width" />
+  	<title>ParticleSlider</title>
+  </head>
+  <body>
+    <div id="particle-slider">
+      <div class="slides">
+        <div id="first-slide" class="slide" data-src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWBAMAAADOL2zRAAAAG1BMVEWAAID///+PH4/v3+/fv9/Pn8+/f7+fP5+vX6/GOeSxAAACkElEQVRoge2WS3PaMBCAFUwQx2xlIEdn6EyuKGWmPcbtcIcpM80RWtrkSCYH9+j0kenPzkpayeZhsDl29rsYS9bn1WolIwTDMAzDMAzDMAzDMAxzMnKlYfy1wYDhx8quRzBs98txUjUg7dlLK13sdlkX5Dj+kwZQ48nDWogIplUuiO0lgkFoatGbtXNdml5PLs7g9ogrLbmG9GaA++wvjl/jeM/ouOscSk+kcEEunFLHjO80cS0BEt/SBYrRunAFcJLXWZbCy1zHyVGXtFkhrvyNc3WhR9G67mMuXP1icXD5eiWX0KqJq6VpBWiKdEcuktR0ReXMD0EBbLgaxZWCSkLDDAa0EKfMEQviJtzjMkxTU+veJRvlflYOKwKFDYvC1aZVreXqQKnmxTMOfXaPO9cM3tR3LSkvFlzSW6ywi+B6Cy7IWi7YCOvc5P3MhQLwJVv5AqnrKsLCkPohRbQFb5q4SmHhiJGQf9zSORVuwQauUXGHFfFv7gvfqlQe3lLHVewfnB1hu5RWkzD/mvkKnVJ7l1GUX1LPpXRIiT+LY20Lv7krHhbfGuua/MKjcXqaCyfm91Ab1J07S0enucRTqKFH2ntXtlirXIsDLiwECiyl+nBfuCpXfsBljmhbr9LvvbYt1i2X8q61qMAMMKWwsAr6GnVsgW26dHDZZ+TnD3tdeC5DnJv43LFnAsw3XNc/f9hqeU8u+Z3qedfV0jZl/qgyn/9p2dX1JayMK3uZ25tkr8scNThLHZZ7aRbBR1n6P2FdRLyt8i//bWalQ1oj41oOdlz94rdJyhYp6Vd4fer7VvkOra0wCYmb/CFDEkH/LdTdzgwx7Ze7bYf5Bmpyv8fEMAzDMAzDMAzDMAzzP/AK95tspWwra0gAAAAASUVORK5CYII=">
+      	</div>
+    	</div>
+  		<canvas class="draw"></canvas>
+      
+      <style>
+          
+          #particle-slider {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-image: @bgImg;
+  background-position: center top;
+
+  .slides, & > .dg {
+    display: none;
+  }
+}
+
+@media (min-width: 1000px) {
+  body {
+    background-image: @hintImg;
+    background-repeat: no-repeat;
+    
+    & > .dg {
+      display: block;
+    }
+  }
+}
+
+          </style>
+      
+      <script type="text/javascript">// Tamino Martinius - All rights reserved
+
+// Copyright © 2013 Tamino Martinius (http://zaku.eu)
+// Copyright © 2013 Particleslider.com (http://particleslider.com
+
+// Terms of usage: http://particleslider.com/legal/license
+
+var init = function(){
+  var isMobile = navigator.userAgent &&
+    navigator.userAgent.toLowerCase().indexOf('mobile') >= 0;
+  var isSmall = window.innerWidth < 1000;
+  
+  var ps = new ParticleSlider({
+    ptlGap: isMobile || isSmall ? 3 : 0,
+    ptlSize: isMobile || isSmall ? 3 : 1
+  });
+    
+  var gui = new dat.GUI();
+  gui.add(ps, 'ptlGap').min(0).max(5).step(1).onChange(function(){
+    ps.init(true);
+  });
+  gui.add(ps, 'ptlSize').min(1).max(5).step(1).onChange(function(){
+    ps.init(true);
+  });
+  gui.add(ps, 'restless');
+  gui.addColor(ps, 'color').onChange(function(value){
+    ps.monochrome = true;
+    ps.setColor(value);
+	  ps.init(true);
+  });
+  
+  
+  (window.addEventListener
+   ? window.addEventListener('click', function(){ps.init(true)}, false)
+   : window.onclick = function(){ps.init(true)});
+}
+
+var initParticleSlider = function(){
+  var psScript = document.createElement('script');
+  (psScript.addEventListener
+    ? psScript.addEventListener('load', init, false)
+    : psScript.onload = init);
+  psScript.src = 'http://particleslider.com/js/particleslider/current/particleslider.js';
+	psScript.setAttribute('type', 'text/javascript');
+  document.body.appendChild(psScript);
+}
+    
+(window.addEventListener
+  ? window.addEventListener('load', initParticleSlider, false)
+  : window.onload = initParticleSlider);
+</script>
+
+  </body>
+</html>
