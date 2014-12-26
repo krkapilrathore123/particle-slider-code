@@ -1,0 +1,13 @@
+1. Select the image of your logo in png format.
+
+2. Open google.com. 
+
+3. Seach “generate data uris for images”
+
+4. Open the first link and generate data-uri for your png image.
+
+5. Copy this code using the right mouse click as the clt+C is disabled on this site.
+
+6. Insert this copied code in the following section, replacing the 3 dots.
+
+<div id="first-slide" class="slide" data-src="...">
